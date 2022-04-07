@@ -1,0 +1,976 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "WSRemittance API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "10.103.1.107"
+basePath: "/WSRemittanceService/api"
+tags:
+- name: "agents"
+  description: "Get the list of agents based on the selected criteria"
+- name: "countries"
+  description: "Get the list of all the countries"
+- name: "banks"
+  description: "Get the list of banks based on the selected criteria"
+- name: "agent locations"
+  description: "Get the list of agent locations based on the selected criteria"
+- name: "customers"
+  description: "Get the list of customers based on the selected criteria"
+- name: "rates and charges"
+  description: "Get the rates and charges based on the selected criteria"
+- name: "bank branches"
+  description: "Get the list of bank branches based on the selected criteria"
+- name: "inquiry"
+  description: "Inquiry based on the selected criteria"
+- name: "beneficiary"
+  description: "Get the list of beneficiaries based on the selected criteria"
+schemes:
+- "https"
+- "http"
+paths:
+  /Agents/:
+    get:
+      tags:
+      - "agents"
+      summary: "Get Agents"
+      operationId: "findAgents"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "CountryCode"
+        in: "query"
+        description: "Country code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "CurrencyCode"
+        in: "query"
+        description: "Currency code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "TransactionTypeCode"
+        in: "query"
+        description: "Transaction type code that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/AgentList"
+        "405":
+          description: "Invalid input"
+
+  /Countries:
+    get:
+      tags:
+      - "countries"
+      summary: "Get countries"
+      description: "Return all the available countries"
+      operationId: "getCountries"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/CountryList"
+        "400":
+          description: "Invalid status value"
+        
+  /Banks/:
+    get:
+      tags:
+      - "banks"
+      summary: "Get Banks"
+      operationId: "findBanks"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "CountryCode"
+        in: "query"
+        description: "Country code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "CurrencyCode"
+        in: "query"
+        description: "Currency code that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/BankList"
+        "405":
+          description: "Invalid input"
+          
+  /AgentLocations/:
+    get:
+      tags:
+      - "agent locations"
+      summary: "Get agent locations"
+      operationId: "findAgentLocations"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "CountryCode"
+        in: "query"
+        description: "Country code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "CurrencyCode"
+        in: "query"
+        description: "Currency code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "TransactionTypeCode"
+        in: "query"
+        description: "Transaction type code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "AgentCode"
+        in: "query"
+        description: "Agent code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "pageNumber"
+        in: "query"
+        description: "Page number that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "pageSize"
+        in: "query"
+        description: "Page size that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/AgentLocationList"
+        "405":
+          description: "Invalid input"
+          
+  /Customers/:
+    get:
+      tags:
+      - "customers"
+      summary: "Get customers"
+      operationId: "findCustomers"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "DateOfBirth"
+        in: "query"
+        description: "Date of birth that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "Nationality"
+        in: "query"
+        description: "Nationality that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "EIDNumber"
+        in: "query"
+        description: "EIDNumber that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "MobileNumber"
+        in: "query"
+        description: "Mobile number that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/Customers"
+        "405":
+          description: "Invalid input"
+          
+  /RatesAndCharges/:
+    get:
+      tags:
+      - "rates and charges"
+      summary: "Get rates and charges"
+      operationId: "findRatesAndCharges"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "SendingCountry"
+        in: "query"
+        description: "Sending country that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "SendingCurrency"
+        in: "query"
+        description: "Sending currency that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "ReceivingCountry"
+        in: "query"
+        description: "Receiving country that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "ReceivingCurrency"
+        in: "query"
+        description: "Receiving currency that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "ReceivingAmount"
+        in: "query"
+        description: "Receiving amount that need to be considered for filter"
+        required: true
+        type: "number"
+        multipleOf: 0.001
+      - name: "TransactionTypeCode"
+        in: "query"
+        description: "Transaction type code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "AgentCode"
+        in: "query"
+        description: "Agent code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "BankCode"
+        in: "query"
+        description: "Bank code that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/RatesAndCharges"
+        "405":
+          description: "Invalid input"
+          
+  /BankBranches/:
+    get:
+      tags:
+      - "bank branches"
+      summary: "Get bank branches"
+      operationId: "findBankBranches"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "CountryCode"
+        in: "query"
+        description: "Country code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "CurrencyCode"
+        in: "query"
+        description: "Currency code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "BankCode"
+        in: "query"
+        description: "Agent code that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "Filter"
+        in: "query"
+        description: "String that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "pageNumber"
+        in: "query"
+        description: "Page number that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "pageSize"
+        in: "query"
+        description: "Page size that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/BankBranchList"
+        "405":
+          description: "Invalid input"
+          
+  /Inquiry/:
+    get:
+      tags:
+      - "inquiry"
+      summary: "Inquiry"
+      operationId: "inquiry"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "GCNumber"
+        in: "query"
+        description: "GCNumber that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "TransactionRefNumber"
+        in: "query"
+        description: "Transaction reference number that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "TransactionID"
+        in: "query"
+        description: "Transaction id that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/Inquiry"
+        "405":
+          description: "Invalid input"
+          
+  /Beneficiary/:
+    get:
+      tags:
+      - "beneficiary"
+      summary: "Get the list of beneficiaries"
+      operationId: "getBeneficiaries"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "GCNumber"
+        in: "query"
+        description: "GCNumber that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "ReceivingCountry"
+        in: "query"
+        description: "Receiving country that need to be considered for filter"
+        required: true
+        type: "string"
+      - name: "ReceivingCurrency"
+        in: "query"
+        description: "Receiving currency that need to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/BeneficiaryList"
+        "405":
+          description: "Invalid input"
+    post:
+      tags:
+      - "beneficiary"
+      summary: "Create beneficiary"
+      operationId: "createBeneficiary"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created beneficiary object"
+        required: true
+        schema:
+          $ref: "#/definitions/BeneficiaryIn"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/BeneficiaryOut"
+        "405":
+          description: "Invalid input"
+          
+  /Beneficiary/{gcNum}/{benfID}:
+    delete:
+      tags:
+      - "beneficiary"
+      summary: "Delete beneficiary"
+      operationId: "deleteBeneficiary"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "gcNum"
+        in: "path"
+        description: "The Gold Card number of the beneficiary that needs to be deleted"
+        required: true
+        type: "string"
+      - name: "benfID"
+        in: "path"
+        description: "The ID number of the beneficiary that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/ResponseHeader"
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+
+  /Remittance/:
+    post:
+      tags:
+      - "remittance"
+      summary: "Post Remittance"
+      operationId: "postremittance"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "This methos is for posting transactions"
+        required: true
+        schema:
+          $ref: "#/definitions/RemittanceIn"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/RemittanceOut"
+        "405":
+          description: "Invalid input"
+          
+definitions:
+  AgentList:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      Agents:
+        $ref: "#/definitions/Agents"  
+    xml:
+      name: "AgentList"
+  ResponseHeader:
+    type: "object"
+    properties:
+      Status:
+        type: "string"
+      ErrorCode:
+        type: "string"
+      ErrorType:
+        type: "string"
+      ErrorDescription:
+        type: "string"
+    xml:
+      name: "ResponseHeader"
+  Agents:
+    type: "array"
+    xml:
+      name: "Agents"  
+      wrapped: true
+    items: 
+      $ref: "#/definitions/Agent"
+  Agent:
+    type: "object"
+    properties:
+      AgentCode:
+        type: "string"
+      AgentName:
+        type: "string"
+      HasAgentLocations:
+        type: "string"
+      PayoutNetwork:
+        type: "string"
+      ModalityInfo:
+        type: "string"
+    xml:
+      name: "Agent" 
+  CountryList:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      Countries:
+        $ref: "#/definitions/Countries"  
+    xml:
+      name: "CountryList"
+  Countries:
+    type: "array"
+    xml:
+      name: "Countries"  
+      wrapped: true
+    items: 
+      $ref: "#/definitions/Country"
+  Country:
+    type: "object"
+    properties:
+      CountryName:
+        type: "string"
+      CurrencyCode:
+        type: "string"
+      Currencies:
+        type: "array"
+        xml:
+          name: "Currencies"  
+          wrapped: true
+        items: 
+          $ref: "#/definitions/Currencies"
+      ModalityInfo:
+        type: "string"
+    xml:
+      name: "Country" 
+  Currencies:
+    type: "object"
+    properties:
+      CurrencyName:
+        type: "string"
+      CurrencyCode:
+        type: "string"
+      TransactionTypes:
+        type: "array"
+        xml:
+          name: "TransactionTypes"  
+          wrapped: true
+        items: 
+          $ref: "#/definitions/TransactionTypes"
+    xml:
+      name: "Currencies" 
+  TransactionTypes:
+    type: "object"
+    properties:
+      TransactionTypeCode:
+        type: "string"
+      TransactionTypeName:
+        type: "string"
+      ExchangeRate:
+        type: "string"
+    xml:
+      name: "TransactionTypes" 
+  BankList:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      Banks:
+        $ref: "#/definitions/Banks"  
+    xml:
+      name: "BankList"
+  Banks:
+    type: "array"
+    xml:
+      name: "Banks"  
+      wrapped: true
+    items: 
+      $ref: "#/definitions/Bank"
+  Bank:
+    type: "object"
+    properties:
+      BankCode:
+        type: "string"
+      BankName:
+        type: "string"
+      HasBranches:
+        type: "string"
+      BankID:
+        type: "string"
+      ModalityInfo:
+        type: "string"
+    xml:
+      name: "Bank" 
+  AgentLocationList:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      TotalRecords:
+        type: "integer" 
+      TotalPages:
+        type: "integer"
+      FirstPage:
+        type: "string"
+      NextPage:
+        type: "string"
+      PrevPage:
+        type: "string"
+      LastPage:
+        type: "string"
+      Locations:
+        type: "array"
+        xml:
+          name: "Banks"  
+          wrapped: true
+        items: 
+          $ref: "#/definitions/Location"
+    xml:
+      name: "AgentLocationList"
+  Location:
+    type: "object"
+    properties:
+      LocationCode:
+        type: "string"
+      Address1:
+        type: "string"
+      Address2:
+        type: "string"
+      Address3:
+        type: "string"
+    xml:
+      name: "Location" 
+  Customers:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      GCNumber:
+        type: "string"
+      DateOfBirth:
+        type: "string"
+      Nationality:
+        type: "string"
+      MobileNumber:
+        type: "string"
+      Transactions:
+        $ref: "#/definitions/Transactions"  
+    xml:
+      name: "Customers"
+  Transactions:
+    type: "array"
+    xml:
+      name: "Transactions"  
+      wrapped: true
+    items: 
+      $ref: "#/definitions/Transaction"
+  Transaction:
+    type: "object"
+    properties:
+      BeneficiaryIDCode:
+        type: "string"
+      BeneficiaryFirstName:
+        type: "string"
+      BeneficiaryMiddleName:
+        type: "string"
+      BeneficiaryLastName:
+        type: "string"
+      TransactionID:
+        type: "string"
+      TransactionAmount:
+        type: "number"
+        multipleOf: 0.001
+    xml:
+      name: "Bank" 
+  RatesAndCharges:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      SessionID:
+        type: "string"
+      SendingCountry:
+        type: "string"
+      SendingCurrency:
+        type: "string"
+      ReceivingCountry:
+        type: "string"
+      ReceivingCurrency:
+        type: "string"
+      SendingAmount:
+        type: "number"
+        multipleOf: 0.001
+      ReceivingAmount:
+        type: "number"
+        multipleOf: 0.001
+      TransactionType:
+        type: "string"
+      AgentCode:
+        type: "string"
+      BankCode:
+        type: "string"
+      Instructions:
+        type: "string"
+      Rate:
+        type: "number"
+        multipleOf: 0.000000001
+      Charge:
+        type: "number"
+        multipleOf: 0.001
+      VAT:
+        type: "number"
+        multipleOf: 0.001
+    xml:
+      name: "RatesAndCharges"
+  BankBranchList:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      TotalRecords:
+        type: "integer" 
+      TotalPages:
+        type: "integer"
+      FirstPage:
+        type: "string"
+      NextPage:
+        type: "string"
+      PrevPage:
+        type: "string"
+      LastPage:
+        type: "string"
+      Branches:
+        type: "array"
+        xml:
+          name: "Banks"  
+          wrapped: true
+        items: 
+          $ref: "#/definitions/Branch"
+    xml:
+      name: "BankBranchList"
+  Branch:
+    type: "object"
+    properties:
+      BranchName:
+        type: "string"
+      BranchCode:
+        type: "string"
+      Address1:
+        type: "string"
+      Address2:
+        type: "string"
+      Address3:
+        type: "string"
+      BranchID:
+        type: "string"
+    xml:
+      name: "Branch" 
+  Inquiry:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      TransactionRefNumber:
+        type: "string"
+      TransactionID:
+        type: "string"
+      TransactionStatus:
+        type: "string"
+    xml:
+      name: "Inquiry"
+  BeneficiaryList:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      Beneficiaries:
+        $ref: "#/definitions/Beneficiaries"    
+    xml:
+      name: "BeneficiaryList"
+  Beneficiaries:
+    type: "array"
+    xml:
+      name: "Beneficiaries"  
+      wrapped: true
+    items: 
+      $ref: "#/definitions/Beneficiary"  
+  Beneficiary:
+    type: "object"
+    properties:
+      BeneficiaryInfo:
+        $ref: "#/definitions/BeneficiaryInfo" 
+      BankInfo:
+        $ref: "#/definitions/BankInfo"
+      AgentInfo:
+        $ref: "#/definitions/AgentInfo" 
+    xml:
+      name: "Beneficiary"
+  BeneficiaryInfo:
+    type: "object"
+    properties:
+      BeneficiaryRegId:
+        type: "string"
+      FirstName:
+        type: "string"
+      MiddleName:
+        type: "string"
+      LastName:
+        type: "string"
+      Relationship:
+        type: "string"
+      BeneficiaryNationality:
+        type: "string"
+      BeneficiaryDOB:
+        type: "string"
+      BeneficiaryMobile:
+        type: "string"
+      BeneficiaryGender:
+        type: "string"
+      ReceivingCountry:
+        type: "string"
+      BeneficiaryAddress1:
+        type: "string"
+      BeneficiaryAddress2:
+        type: "string"
+      BeneficiaryAddress3:
+        type: "string"
+      BeneficiaryIDType:
+        type: "string"
+      BeneficiaryIDNumber:
+        type: "string"
+      BeneficiaryIDExpiryDate:
+        type: "string"
+      BeneficiaryIDIssuePlace:
+        type: "string"
+      BeneficiaryPlaceOfBirth:
+        type: "string"
+    xml:
+      name: "Beneficiary" 
+  BankInfo:
+    type: "object"
+    properties:
+      BankName:
+        type: "string"
+      BankCode:
+        type: "string"
+      BranchCode:
+        type: "string"
+      AccountNumber:
+        type: "string"
+    xml:
+      name: "BankInfo" 
+  AgentInfo:
+    type: "object"
+    properties:
+      AgentCode:
+        type: "string"
+      LocationCode:
+        type: "string"
+    xml:
+      name: "AgentInfo"
+  BeneficiaryIn:
+    type: "object"
+    properties:
+      GCNumber:
+        type: "string"
+      ReceivingCountry:
+        type: "string"
+      ReceivingCurrency:
+        type: "string"
+      TransactionTypeCode:
+        type: "string"
+      BeneficiaryInfo:
+        $ref: "#/definitions/BeneficiaryInfo"  
+    xml:
+      name: "BeneficiaryIn"
+  BeneficiaryOut:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      BeneficiaryInfo:
+        $ref: "#/definitions/BeneficiaryInfo" 
+      BankInfo:
+        $ref: "#/definitions/BankInfo"
+      AgentInfo:
+        $ref: "#/definitions/AgentInfo"
+    xml:
+      name: "BeneficiaryOut"
+  RemittanceIn:
+    type: "object"
+    properties:
+      TransactionInfo:
+        $ref: "#/definitions/TransactionInfo"  
+      PaymentInfo:
+        $ref: "#/definitions/PaymentInfo"  
+    xml:
+      name: "RemittanceIn"
+  TransactionInfo:
+    type: "object"
+    properties:
+      SendingCountry:
+        type: "string"
+      ReceivingCountry:
+        type: "string"
+      GCNumber:
+        type: "string"
+      BeneficiaryRegId:
+        type: "string"
+      TransactionType:
+        type: "string"
+      PurposeOfTransaction:
+        type: "string"
+      SourceOfFund:
+        type: "string"
+      SessionID:
+        type: "string"
+    xml:
+      name: "TransactionInfo"
+  PaymentInfo:
+    type: "object"
+    properties:
+      SendingAmount:
+        type: "number"
+        multipleOf: 0.1
+      SendingCurrency:
+        type: "string"
+      Charge:
+        type: "number"
+        multipleOf: 0.001
+      WSRate:
+        type: "number"
+        multipleOf: 0.000000001
+      CustomerRate:
+        type: "number"
+        multipleOf: 0.000000001
+      VAT:
+        type: "number"
+        multipleOf: 0.01
+      PayingAmount:
+        type: "number"
+        multipleOf: 0.1
+      PayingCurrency:
+        type: "string"
+    xml:
+      name: "PaymentInfo"
+  RemittanceOut:
+    type: "object"
+    properties:
+      ResponseHeader:
+        $ref: "#/definitions/ResponseHeader"
+      TransactionInfo:
+        $ref: "#/definitions/RemittanceInfo"  
+      PaymentInfo:
+        $ref: "#/definitions/PaymentInfo"  
+    xml:
+      name: "RemittanceIn"
+  RemittanceInfo:
+    type: "object"
+    properties:
+      TransactionRefNumber:
+        type: "string"
+      BeneficiaryInstruction:
+        type: "string"
+      TransactionID:
+        type: "string"
+      ExchangeEarning:
+        type: "number"
+        multipleOf: 0.001
+      SettlementAmount:
+        type: "number"
+        multipleOf: 0.001
+      TotalAmount:
+        type: "number"
+        multipleOf: 0.001
+      Status:
+        type: "string"
+    xml:
+      name: "TransactionInfo"
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
